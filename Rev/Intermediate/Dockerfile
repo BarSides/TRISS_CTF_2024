@@ -4,7 +4,6 @@ RUN apt-get update
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository ppa:longsleep/golang-backports
 RUN apt-get install -y golang-go gdb make
-RUN go install github.com/go-delve/delve/cmd/dlv@latest
 
 # Set the working directory
 WORKDIR /app
