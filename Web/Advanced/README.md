@@ -1,5 +1,10 @@
-# Name
+## Getting started
+```
+$ docker compose up -d
+```
 
-## Overview
+The database is automatically initialized and can viewed/modified at `http://localhost:8081/`.
 
-## Setup
+## The Challenge
+
+The challenge is to gain API access as the admin user.
