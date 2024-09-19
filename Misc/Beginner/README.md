@@ -1,6 +1,9 @@
 # Name
 Discord
 
+## Author
+@justinforbes
+
 ## Overview
 There is a flag hidden on the BarSides Discord server.
 

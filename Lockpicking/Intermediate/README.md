@@ -1,6 +1,9 @@
 # Name
 Yellow Box
 
+## Author
+@justinforbes
+
 ## Overview
 This lockpicking challenge is to open the Master lock on the yellow box.
 
