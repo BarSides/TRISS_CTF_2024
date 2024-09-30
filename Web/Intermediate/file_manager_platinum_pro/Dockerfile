@@ -11,7 +11,7 @@ WORKDIR /app
 RUN apt update &&  \
     apt upgrade &&  \
     pip install --upgrade pip &&  \
-    pip install poetry && \
+    pip install poetry gunicorn[gevent] && \
     mkdir /app/templates
 
 COPY templates/*.html /app/templates/

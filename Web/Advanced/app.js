@@ -139,11 +139,11 @@ app.listen(8000, () => {
     const TYRELL = "Tyrell"
 
     Array.from([
-        user("admin", [WEYLAND_YUTANI, TYRELL], ["Barsides{sneakers}"]),
+        user("admin", [WEYLAND_YUTANI, TYRELL], ["Barsides{da87220bbb1245eb9cedd527c1c5544f}"]),
         user("trisstopher", [TYRELL]),
         user("trisstoph", [WEYLAND_YUTANI]),
         user("beatriss", [WEYLAND_YUTANI]),
-        {name: "trissandra", orgs: [WEYLAND_YUTANI], corp_id: "1337b4da55", api_keys: ["secret"]},
+        user("trissandra", [WEYLAND_YUTANI]),
         user("trissabelle", [TYRELL])
     ]).forEach(u =>
         coll.updateOne({name: u.name}, {$set: u}, {upsert: true})
