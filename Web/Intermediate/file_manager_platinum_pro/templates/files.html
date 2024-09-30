@@ -5,15 +5,12 @@
     }
 {% endblock %}
 {% block content %}
-    {% set page = request.args.get('page', 0) | int %}
-    {% set count = request.args.get('count', 12) | int %}
     {% set query = request.args.get('query', '') %}
-    <form method="get" target="_blank">
+    <form method="get">
         <label for="query">Search</label>
         <input type="text" id="query" name="query" value="{{ query }}" style="width: 75%" />
-        <input type="hidden" id="page" name="page" value="{{ page }}" />
-        <input type="hidden" id="count" name="count" value="{{ count }}">
     </form>
+    <div><span style="color: red">Notice:</span> Due to server constraints, results are limited to 100 files.</div>
     <table>
         <tr>
             <th>Row</th>
@@ -22,28 +19,10 @@
         </tr>
         {% for f in files %}
             <tr>
-                <td>{{ f.row }}</td>
                 <td>{{ f.user_id }}</td>
                 <td><a href="/files/{{ f.user_id }}/{{ f.filename }}">{{ f.filename }}</a></td>
             </tr>
         {% endfor %}
     </table>
-    <hr/>
-    <div style="overflow: hidden">
-        <div class="pagelink">
-            {% if page > 0 %}
-                <a href="{{ url_for('files', query=query, page=page-1, count=count) }}">previous</a>
-            {% else %}
-                <span style="color: lightgray">previous</span>
-            {% endif %}
-        </div>
-        <div class="pagelink" style="text-align: right">
-            {% if files %}
-                <a href="{{ url_for('files', query=query, page=page+1, count=count) }}">next</a>
-            {% else %}
-                <span style="color: lightgray">next</span>
-            {% endif %}
-        </div>
-    </div>
     <hr/>
 {% endblock %}

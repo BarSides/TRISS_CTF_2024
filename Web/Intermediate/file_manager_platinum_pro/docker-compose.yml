@@ -3,23 +3,26 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_DB: database
       POSTGRES_USER: "${PG_ROOT_USER}"
       POSTGRES_PASSWORD: "${PG_ROOT_PASSWORD}"
+      POSTGRES_DB: "${PG_DATABASE}"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "127.0.0.1:5432:5432"
 
   web:
-    build: .
+    build:
+      context: .
     restart: always
-    volumes:
-      - .:/app
+    environment:
+      PG_USER: "${PG_USER}"
+      PG_PASSWORD: "${PG_PASSWORD}"
+      PG_HOST: "${PG_HOST}"
+      PG_DATABASE: "${PG_DATABASE}"
     ports:
-      - "5000:5000"
+      - "0.0.0.0:8001:8001"
     depends_on:
       - db
-
 #volumes:
 #  postgres_data:

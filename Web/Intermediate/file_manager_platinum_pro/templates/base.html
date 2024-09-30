@@ -46,7 +46,7 @@ tr:nth-child(odd) {
     <div class="title"><h3>File Manager Platinum Pro++</h3></div>
     <div class="user_info">
         <span>User: {{ current_user.username }}</span>
-        {% if current_user.username %}<a href="{{ url_for('logout') }}">Logout</a>{% endif %}
+        {% if current_user.is_authenticated %}<a href="{{ url_for('logout') }}">Logout</a>{% endif %}
     </div>
 {% block content %}{% endblock %}
 </div>
