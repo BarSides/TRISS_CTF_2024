@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}<div style="padding: 10px; border: 1px solid black; border-radius: 5px">
+<form method="POST">
+    <div><label for="username">Username</label><input type="text" name="username" required></div>
+    <div><label for="password">Password</label>
+    <input type="password" name="password" required></div>
+    <button type="submit">Login</button>
+    <em style="color:red">{{ user_message }}</em>
+</form>
+</div>
+{% endblock %}

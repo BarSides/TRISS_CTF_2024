@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: database
+      POSTGRES_USER: "${PG_ROOT_USER}"
+      POSTGRES_PASSWORD: "${PG_ROOT_PASSWORD}"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "127.0.0.1:5432:5432"
+
+  web:
+    build: .
+    restart: always
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
+#volumes:
+#  postgres_data:
