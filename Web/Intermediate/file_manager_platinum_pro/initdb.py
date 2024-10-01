@@ -33,13 +33,17 @@ def init_db():
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
 
+    login_user = "Beatriss"
+
     users = [User(username=n,
-                  password=generate_password_hash(uuid4().hex if n != 'Beatriss' else 'Triss2024'))
+                  password=generate_password_hash(uuid4().hex if n != login_user else 'Triss2024'))
              for n in names]
 
     files = []
 
-    flag_username = names[random.randint(0, len(names))]
+    while flag_username := names[random.randint(0, len(names))]:
+        if flag_username != login_user:
+            break
 
     with Sess() as session:
         try:

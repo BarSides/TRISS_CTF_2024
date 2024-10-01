@@ -7,8 +7,9 @@ file.
 
 ## Setup
 
-1.  Run the application: `docker compose up`
-2.  Login with the following credentials:
+1.  Run the application: `docker compose up`.
+1.  Navigate to `127.0.0.1:8001` in your browser.
+1.  Login with the following credentials:
 
 Username: Beatriss
 
@@ -16,5 +17,6 @@ Password: Triss2024
 
 ## Hints
 
+- Getting the malicious file should be the first step.
 - The malicious file is a script of some kind, and it has the appropriate file extension.
-- Make sure to check every data structure.
+- Make sure to check all data structures when running the script.
