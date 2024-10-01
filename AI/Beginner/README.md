@@ -1,9 +1,7 @@
-# Title
+# Name
 
-Captcha Captain
+Torched Pickle
 
 ## Overview
 
-We're tired of bots attacking our site, so we implemented an unbreakable captcha!
-
-Solve 1000 captchas to succeed! If you make more than 100 mistakes, you'll reset your session.
+We have created a new service where you can upload your PyTorch models to be served from our awesome web app. The flag is in the environment variable CTF_FLAG.

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Captcha Challenge</title>
-</head>
-<body>
-    <h1>Solve the Captcha</h1>
-    <img style="border: 1px solid black" src="{{ url_for('static', filename=image_filename) }}" alt="Captcha Image"><br />
-    <span>{{ informative_message }}</span><br />
-    <form method="post">
-        <input type="text" name="solution" placeholder="Enter the solution">
-        <button type="submit">Submit</button>
+  <head>
+    <title>PyTorch as a Service</title>
+  </head>
+  <body>
+    <h1>PyTorch as a Service</h1>
+    <h2>Upload Your Model</h2>
+    <p>We enable you to run your saved PyTorch models from our awesome beefy servers.</p>
+    <form method="post" enctype="multipart/form-data">
+      <input type="file" name="model" required>
+      <input type="submit" value="Upload">
     </form>
-</body>
+  </body>
 </html>

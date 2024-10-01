@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Model Upload</title>
-  </head>
-  <body>
-    <h1>Upload Your Model</h1>
-    <form method="post" enctype="multipart/form-data">
-      <input type="file" name="model" required>
-      <input type="submit" value="Upload">
+<head>
+    <title>Captcha Challenge</title>
+</head>
+<body>
+    <h1>Solve the Captcha</h1>
+    <img style="border: 1px solid black" src="{{ url_for('static', filename=image_filename) }}" alt="Captcha Image"><br />
+    <span>{{ informative_message }}</span><br />
+    <form method="post">
+        <input type="text" name="solution" placeholder="Enter the solution">
+        <button type="submit">Submit</button>
     </form>
-  </body>
+</body>
 </html>
