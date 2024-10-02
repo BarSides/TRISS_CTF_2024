@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <h4>Welcome to All About Food!</h4>
+    <h4>Here are some examples of food:</h4>
+    <ul>
+        {% for food in ["pizza", "ice_cream", "cookie", "lutefisk"] %}
+            <li><a href="/food/{{ food }}">{{ food }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

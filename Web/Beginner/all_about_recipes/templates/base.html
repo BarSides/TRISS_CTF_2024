@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>All About Food</title>
+    <style>
+        body {
+            background-color: firebrick;
+            padding: 0;
+            margin: 0;
+        }
+
+        .wrapper {
+            text-align: left;
+            width: 1024px;
+            background-color: white;
+            min-height: 100vh;
+            margin: auto;
+            padding: 10px;
+        }
+
+        .title {
+            background-color: lightskyblue;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .content {
+        }
+
+        nav {
+            border-bottom: 1px solid black;
+        }
+
+        .crumbs ol {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .crumb {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <h2 class="title">All About Food</h2>
+    <div>
+        <nav>
+            <ol class="crumbs">
+                <li class="crumb"><a href="{{ url_for("index") }}">Main</a></li>
+                {% if name %}
+                    <li class="crumb">&gt;</li>
+                    <li class="crumb"><a href="{{ url_for("food", name=name) }}">{{ name.capitalize() }}</a></li>
+                {% endif %}
+            </ol>
+        </nav>
+        {% if name %}
+            <h3 class="page_title">{{ name.capitalize() }}</h3>
+        {% endif %}
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

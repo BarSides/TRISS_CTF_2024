@@ -1,0 +1,6 @@
+services:
+  beginner_webapp:
+    build:
+      context: .
+    ports:
+      - "0.0.0.0:8002:8002"

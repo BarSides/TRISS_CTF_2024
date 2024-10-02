@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block page_title %}
+{{ name }}
+{% endblock %}
+{% block content %}
+    <img src="{{ url_for("static", filename=name + ".jpg") }}" alt="Food not found."/>
+{% endblock %}
