@@ -16,7 +16,7 @@ EXPOSE 8080
 
 # Start the shell for interactive debugging
 #CMD ["/bin/bash"]
-ENV CTF_FLAG="TRISS{dr!p_dr0p_dr!p_dr0p}"
+ENV CTF_FLAG="BarSides{dr!p_dr0p_dr!p_dr0p}"
 ENV CTF_PORT=8080
 ENV CTF_DATE="20241003"
 ENTRYPOINT ["/app/server"]
