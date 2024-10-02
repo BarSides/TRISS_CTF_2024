@@ -32,10 +32,10 @@ generate_samples: $(DATES_FILE)
 		go run generate_dropper.go $$date; \
 		go build -o $(SAMPLES_DIR)/dropper_$$date $(SRC_DIRECTORY)/client/$(CLIENT_GO_SOURCE); \
 		random_flag="TRISS_CTF{RANDOM_FLAG_$$date}"; \
-		CTF_FLAG="$$random_flag" CTF_DATE="$$date" go run $(SRC_DIRECTORY)/server/$(SERVER_GO_SOURCE) > $(SAMPLES_DIR)/payload_$$date.bin; \
+		CTF_FLAG="$$random_flag" CTF_DATE="$$date" CTF_PORT="8999" go run $(SRC_DIRECTORY)/server/$(SERVER_GO_SOURCE) -output $(SAMPLES_DIR)/payload_$$date.bin; \
 	done < $(DATES_FILE)
-	@cd $(SAMPLES_DIR) && zip ../$(ZIP_FILE) dropper_*
-	@echo "Samples generated and zipped in $(ZIP_FILE)"
+	@cd $(SAMPLES_DIR) && zip ../$(ZIP_FILE) dropper_* payload_*.bin
+	@echo "Samples and payloads generated and zipped in $(ZIP_FILE)"
 
 $(DATES_FILE):
 	@echo "Please create a $(DATES_FILE) with one date per line in YYYYMMDD format."

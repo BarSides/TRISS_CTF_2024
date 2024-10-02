@@ -5,6 +5,7 @@ import (
 	"crypto/cipher"
 	"crypto/rand"
 	"encoding/base64"
+	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -33,15 +34,29 @@ func generateKeys() (string, string) {
 }
 
 func main() {
+	outputFile := flag.String("output", "", "Output file for the payload")
+	flag.Parse()
+
 	xorKey, aesKey = generateKeys()
-	http.HandleFunc("/flag", flagHandler)
+	
+	encodedPayload := encodePayload()
+
+	if *outputFile != "" {
+		err := os.WriteFile(*outputFile, []byte(encodedPayload), 0644)
+		if err != nil {
+			log.Fatalf("Error writing payload to file: %v", err)
+		}
+		fmt.Printf("Payload written to %s\n", *outputFile)
+	} else {
+		http.HandleFunc("/flag", flagHandler)
 	
 	fmt.Printf("Server running on http://0.0.0.0:%s\n", httpPort)
-	fmt.Printf("Using XOR Key: %s, AES Key: %s\n", xorKey, aesKey)
-	
-	err := http.ListenAndServe("0.0.0.0:"+httpPort, nil)
-	if err != nil {
-		log.Fatalf("Error starting server: %v", err)
+		fmt.Printf("Using XOR Key: %s, AES Key: %s\n", xorKey, aesKey)
+		
+		err := http.ListenAndServe("0.0.0.0:"+httpPort, nil)
+		if err != nil {
+			log.Fatalf("Error starting server: %v", err)
+		}
 	}
 }
 
