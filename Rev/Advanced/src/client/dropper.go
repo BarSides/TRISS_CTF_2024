@@ -18,7 +18,7 @@ var (
 // Template variables filled during compilation
 var (
     xorKey = "CTF20230515"
-    aesKey = "CTF20230515_AES"
+    aesKey = "CTF20230515_AES!"
 )
 
 func main() {

@@ -19,8 +19,13 @@ var (
 )
 
 func generateKeys() (string, string) {
-	now := time.Now().UTC()
-	dateStr := now.Format("20060102")
+	var dateStr string
+	if envDate := os.Getenv("CTF_DATE"); envDate != "" {
+		dateStr = envDate
+	} else {
+		now := time.Now().UTC()
+		dateStr = now.Format("20060102")
+	}
 	xorKey := "CTF" + dateStr
 	aesKey := "CTF" + dateStr + "_AES!" // Ensure AES key is 16, 24, or 32 bytes long
 	return xorKey, aesKey
@@ -30,6 +35,7 @@ func main() {
 	xorKey, aesKey = generateKeys()
 	http.HandleFunc("/flag", flagHandler)
 	fmt.Printf("Server running on http://localhost:%s\n", httpPort)
+	fmt.Printf("Using XOR Key: %s, AES Key: %s\n", xorKey, aesKey)
 	http.ListenAndServe(":"+httpPort, nil)
 }
 
