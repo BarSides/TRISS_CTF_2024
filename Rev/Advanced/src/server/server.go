@@ -22,7 +22,7 @@ func generateKeys() (string, string) {
 	now := time.Now().UTC()
 	dateStr := now.Format("20060102")
 	xorKey := "CTF" + dateStr
-	aesKey := "CTF" + dateStr + "_AES" // Ensure AES key is 16, 24, or 32 bytes long
+	aesKey := "CTF" + dateStr + "_AES!" // Ensure AES key is 16, 24, or 32 bytes long
 	return xorKey, aesKey
 }
 

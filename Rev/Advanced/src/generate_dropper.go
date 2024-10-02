@@ -158,7 +158,7 @@ func obfuscatedFunction() string {
 
 func generateKeys(dateStr string) (string, string) {
     xorKey := "CTF" + dateStr
-    aesKey := "CTF" + dateStr + "_AES" // Ensure AES key is 16, 24, or 32 bytes long
+    aesKey := "CTF" + dateStr + "_AES!" // Ensure AES key is 16, 24, or 32 bytes long
     return xorKey, aesKey
 }
 
