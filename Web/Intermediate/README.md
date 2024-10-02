@@ -20,3 +20,7 @@ Password: Triss2024
 - Getting the malicious file should be the first step.
 - The malicious file is a script of some kind, and it has the appropriate file extension.
 - Make sure to check all data structures when running the script.
+
+## Flag
+
+Barsides{d7389e80-3f95-413a-afdf-2158d9199e8e}
