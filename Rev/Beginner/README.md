@@ -1,5 +1,7 @@
 # Name
 
+Epub Privacy
+
 ## Overview
 
-## Setup
+Some awful person created a malware in epub form. Find out how they did it and bring us the flag.
