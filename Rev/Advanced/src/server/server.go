@@ -8,13 +8,14 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 )
 
-const (
-	flag     = "TRISS{Rev3rse_Eng1neer1ng_1s_Fun}"
-	xorKey   = "TRISS_CTF_2024"
-	aesKey   = "TRISS_CTF_2024_1" // AES key must be 16, 24, or 32 bytes long
-	httpPort = "8080"
+var (
+	flag     = os.Getenv("CTF_FLAG")
+	xorKey   = os.Getenv("CTF_XOR_KEY")
+	aesKey   = os.Getenv("CTF_AES_KEY")
+	httpPort = os.Getenv("CTF_SERVER_PORT")
 )
 
 func main() {
