@@ -20,9 +20,11 @@ To authenticate, you must set the X-Api-Key header:
 
 The following endpoints are available in varying levels of completion:
 
-GET /users
-GET /users/:corp_id
-POST /apikeys/:corp_id <TODO: get intern to add json payload example here>
+Method | Path               | Payload
+--- |--------------------| ---
+GET | /users             |
+GET | /users/:corp_id    |
+POST |  /apikeys/:corp_id | <TODO: get intern to add json payload example here>
 
 ## Hints
 
