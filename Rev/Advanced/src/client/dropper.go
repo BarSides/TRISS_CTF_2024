@@ -24,17 +24,29 @@ var (
 func main() {
     outputFile := flag.String("output", "", "Output file for the raw downloaded payload")
     dumpBinary := flag.Bool("dump", false, "Dump the binary payload to a file")
+    inputFile := flag.String("input", "", "Input file containing the payload")
     flag.Parse()
 
-    if serverURL == "" {
-        serverURL = "http://localhost:8080/flag"
-    }
+    var encodedFlag string
+    var err error
 
-    // Download the encoded flag from the server
-    encodedFlag, err := downloadFlag(serverURL)
-    if err != nil {
-        fmt.Println("Error downloading flag:", err)
-        os.Exit(1)
+    if *inputFile != "" {
+        // Load payload from file
+        encodedFlag, err = loadPayloadFromFile(*inputFile)
+        if err != nil {
+            fmt.Println("Error loading payload from file:", err)
+            os.Exit(1)
+        }
+    } else {
+        // Download payload from server
+        if serverURL == "" {
+            serverURL = "http://localhost:8080/flag"
+        }
+        encodedFlag, err = downloadFlag(serverURL)
+        if err != nil {
+            fmt.Println("Error downloading flag:", err)
+            os.Exit(1)
+        }
     }
 
     // Optionally write the raw payload to a file
@@ -86,6 +98,14 @@ func main() {
     flag := deobfuscate(xorDecrypted)
 
     fmt.Println("Flag:", flag)
+}
+
+func loadPayloadFromFile(filename string) (string, error) {
+    data, err := ioutil.ReadFile(filename)
+    if err != nil {
+        return "", err
+    }
+    return string(data), nil
 }
 
 func downloadFlag(serverURL string) (string, error) {

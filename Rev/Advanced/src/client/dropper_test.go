@@ -33,6 +33,7 @@ func TestDecryptAES(t *testing.T) {
 func TestXorDecrypt(t *testing.T) {
 	input := []byte("Test XOR decryption")
 	key := "TestKey"
+	
 	encrypted := xorEncrypt(input, key) // We need to implement this function
 	decrypted := xorDecrypt(encrypted, key)
 

@@ -7,13 +7,14 @@ import (
 	"encoding/base64"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"time"
 )
 
 var (
-	httpPort = "8080"
+	httpPort = os.Getenv("CTF_PORT")
 	xorKey   string
 	aesKey   string
 )
@@ -34,12 +35,18 @@ func generateKeys() (string, string) {
 func main() {
 	xorKey, aesKey = generateKeys()
 	http.HandleFunc("/flag", flagHandler)
-	fmt.Printf("Server running on http://localhost:%s\n", httpPort)
+	
+	fmt.Printf("Server running on http://0.0.0.0:%s\n", httpPort)
 	fmt.Printf("Using XOR Key: %s, AES Key: %s\n", xorKey, aesKey)
-	http.ListenAndServe(":"+httpPort, nil)
+	
+	err := http.ListenAndServe("0.0.0.0:"+httpPort, nil)
+	if err != nil {
+		log.Fatalf("Error starting server: %v", err)
+	}
 }
 
 func flagHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Serving flag to", r.RemoteAddr)
 	encodedPayload := encodePayload()
 	w.Write([]byte(encodedPayload))
 }
