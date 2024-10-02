@@ -7,6 +7,9 @@ const client = new MongoClient(process.env.MONGO_URL || "mongodb://root:example@
 const DBNAME = "auth"
 const COLLECTION = "users"
 
+const WEYLAND_YUTANI = "Weyland-Yutani"
+const TYRELL = "Tyrell"
+
 function getCollection() {
     return client.db(DBNAME).collection(COLLECTION)
 }
@@ -43,7 +46,9 @@ app.use(async (req, res, next) => {
     }
 
     if (key_name.match(/[\(\)\.\*\+\{\}\\]+/ig)) {
-        return res.status(400).send(errmsg("Whatchu tryin' to pull, anyway?"));
+        return res.status(400).send(errmsg(
+            "Disallowed regex values detected.  Please enter your API key and don't try to hack the system."
+        ));
     }
 
     getCollection().findOne({
@@ -59,13 +64,13 @@ app.use(async (req, res, next) => {
         }
     }).catch((err) => {
         console.error(err)
-        res.status(500).send(messages.internal_error)
+        res.status(500).send(err.toString())
     })
 })
 
 app.get("/users", async (req, res, next) => {
     getCollection().find({
-        $or: req.user.orgs.map(orgs => {
+        $or: (req.user.orgs || []).map(orgs => {
             return {orgs}
         })
     }).project({_id: 0, orgs: 1, corp_id: 1, name: 1}).toArray().then((data) => {
@@ -80,8 +85,12 @@ app.post("/apikeys/:corp_id", async (req, res, next) => {
         return res.status(401).send(errmsg(messages.invalid_credentials))
     }
 
+    if (req.body.api_key === undefined) {
+        return res.status(400).send(errmsg('Field missing: api_key'))
+    }
+
     if (!(req.body.api_key || '').match(/^[a-z0-9]{1,12}$/i)) {
-        return res.status(400).send(errmsg("Invalid api key"))
+        return res.status(400).send(errmsg("API key must be alphanumeric and 1 to 12 characters."))
     }
 
     getCollection().findOne({
@@ -93,19 +102,11 @@ app.post("/apikeys/:corp_id", async (req, res, next) => {
         if (data.api_keys.includes(req.body.api_key)) {
             return res.status(409).send()
         }
-        getCollection().updateOne({
-            _id: data._id
-        }, {
-            $push: {api_keys: req.body.api_key}
-        }).then(data => {
-            res.status(201).send()
-        }).catch(
-            err =>
-                res.status(500).send(err)
-        )
+
+        res.status(501).send(errmsg("key successfully validated. TODO: get the intern to code db write logic."))
     }).catch(
         err =>
-            res.status(500).send(err)
+            res.status(500).send(err.toString())
     )
 })
 
@@ -121,34 +122,33 @@ app.get("/users/:corp_id", async (req, res, next) => {
         }
         return res.send(data)
     }).catch(err => {
-        res.status(500).send(messages.internal_error)
+        res.status(500).send(err.toString())
     })
 })
 
-function user(name, orgs, keys) {
-    const uuid = uuidv4();
+function user(name, orgs, keys, corp_id) {
     return {
-        name, orgs, corp_id: uuid.substring(24), api_keys: !!keys ? keys : [uuid.substring(0, 8)]
+        name, orgs, corp_id: corp_id || uuidv4().substring(24), api_keys: !!keys ? keys : [uuidv4().substring(0, 8)]
     }
 }
 
-app.listen(8000, () => {
-    const coll = getCollection()
+const port = parseInt(process.env.PORT || "8000")
 
-    const WEYLAND_YUTANI = "Weyland-Yutani"
-    const TYRELL = "Tyrell"
-
-    Array.from([
-        user("admin", [WEYLAND_YUTANI, TYRELL], ["Barsides{da87220bbb1245eb9cedd527c1c5544f}"]),
-        user("trisstopher", [TYRELL]),
-        user("trisstoph", [WEYLAND_YUTANI]),
-        user("beatriss", [WEYLAND_YUTANI]),
-        user("trissandra", [WEYLAND_YUTANI]),
-        user("trissabelle", [TYRELL])
-    ]).forEach(u =>
-        coll.updateOne({name: u.name}, {$set: u}, {upsert: true})
-            .then(data => console.log(data)).catch(err => console.error(err))
-    )
-    console.log("Database initialized")
-    console.log("Server running on port 8000")
+app.listen(port, () => {
+    getCollection().drop().then(() => {
+        Array.from([
+            user("admin", [WEYLAND_YUTANI, TYRELL], ["Barsides{8a6e053f-ac6e-492b-b83b-72adf192482f}"]),
+            user("trisstopher", [TYRELL]),
+            user("trisstoph", [WEYLAND_YUTANI]),
+            user("beatriss", [WEYLAND_YUTANI]),
+            user("trissandra", [WEYLAND_YUTANI], undefined, "1337b4da55"),
+            user("trissabelle", [TYRELL])
+        ]).forEach(u =>
+            getCollection().updateOne({name: u.name}, {$set: u}, {upsert: true})
+                .then(data => console.log(data)).catch(err => console.error(err))
+        )
+        console.log("Database initialized")
+    })
+        .catch(err => console.error(err))
+    console.log(`Server running on ${port}`)
 })
