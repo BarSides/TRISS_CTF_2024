@@ -13,14 +13,18 @@ exec(base64.b64decode({str(b64encode(s))}).decode())
 """.encode("utf-8")
 
 
-def main():
+def get_options(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument('-n', type=int)
     parser.add_argument('-f', type=int)
     parser.add_argument('--flag')
     parser.add_argument('script')
     parser.add_argument('output')
-    options = parser.parse_args()
+    return parser.parse_args(argv)
+
+
+def main(argv=None):
+    options = get_options(argv)
 
     n, f = options.n, options.f
     flag = f"Barsides{{{options.flag}}}"
