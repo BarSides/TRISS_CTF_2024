@@ -21,3 +21,5 @@ Select a media (use Arrow keys, then press Enter):
 # Press the c button to copy flag.txt
 # Press c again over . for the current directory
 ```
+
+Flag: TRISS{everything_not_saved_will_be_lost}

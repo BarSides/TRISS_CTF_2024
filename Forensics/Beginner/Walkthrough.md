@@ -9,3 +9,5 @@ flag.txt
 Source: https://codeonby.com/2022/01/19/brute-force-veracrypt-encryption/
 
 The password is "guessme".
+
+Flag: TRISS{v3ry_v3ry_v3r4crypt3d}
