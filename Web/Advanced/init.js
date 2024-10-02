@@ -26,7 +26,7 @@ getCollection().drop().then(result => {
     const coll = getCollection()
 
     Array.from([
-        user("admin", WEYLAND_YUTANI, ["Barsides{8a6e053f-ac6e-492b-b83b-72adf192482f}"]),
+        user("admin", WEYLAND_YUTANI, ["BarSides{8a6e053f-ac6e-492b-b83b-72adf192482f}"]),
         user("trisstopher", TYRELL),
         user("trisstoph", WEYLAND_YUTANI),
         user("beatriss", WEYLAND_YUTANI),

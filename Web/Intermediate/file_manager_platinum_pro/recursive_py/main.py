@@ -27,7 +27,7 @@ def main(argv=None):
     options = get_options(argv)
 
     n, f = options.n, options.f
-    flag = f"Barsides{{{options.flag}}}"
+    flag = f"BarSides{{{options.flag}}}"
 
     assert f > 0 and n > 0 and n > f, f"invalid: {f} {n}"
 

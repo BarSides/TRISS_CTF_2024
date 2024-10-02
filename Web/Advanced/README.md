@@ -33,4 +33,4 @@ The following endpoints are available in varying levels of completion:
 
 ## Flag
 
-Barsides{8a6e053f-ac6e-492b-b83b-72adf192482f}
+BarSides{8a6e053f-ac6e-492b-b83b-72adf192482f}

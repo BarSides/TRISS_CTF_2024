@@ -23,4 +23,4 @@ Password: Triss2024
 
 ## Flag
 
-Barsides{d7389e80-3f95-413a-afdf-2158d9199e8e}
+BarSides{d7389e80-3f95-413a-afdf-2158d9199e8e}
