@@ -47,7 +47,7 @@ app.use(async (req, res, next) => {
 
     if (key_name.match(/[\(\)\.\*\+\{\}\\]+/ig)) {
         return res.status(400).send(errmsg(
-            "Disallowed regex values detected.  Please enter your API key and don't try to hack the system."
+            "Disallowed regex value(s) detected.  Please enter your API key and don't try to hack the system."
         ));
     }
 
