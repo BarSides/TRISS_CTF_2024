@@ -20,13 +20,17 @@ To authenticate, you must set the X-Api-Key header:
 
 The following endpoints are available in varying levels of completion:
 
-Method | Path               | Payload
---- |--------------------| ---
-GET | /users             |
-GET | /users/:corp_id    |
-POST |  /apikeys/:corp_id | <TODO: get intern to add json payload example here>
+| Method | Path               | Payload                                             |
+|--------|--------------------|-----------------------------------------------------|
+| GET    | /users             |                                                     |
+| GET    | /users/:corp_id    |                                                     |
+| POST   |  /apikeys/:corp_id | <TODO: get intern to add json payload example here> |
 
 ## Hints
 
 - This challenge may require more than one exploit.
 - Look at all inputs and responses, including error messages.
+
+## Flag
+
+Barsides{8a6e053f-ac6e-492b-b83b-72adf192482f}
