@@ -9,29 +9,43 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"time"
 )
 
 var (
-	flag     = os.Getenv("CTF_FLAG")
-	xorKey   = os.Getenv("CTF_XOR_KEY")
-	aesKey   = os.Getenv("CTF_AES_KEY")
-	httpPort = os.Getenv("CTF_SERVER_PORT")
+	httpPort = "8080"
+	xorKey   string
+	aesKey   string
 )
 
+func generateKeys() (string, string) {
+	now := time.Now().UTC()
+	dateStr := now.Format("20060102")
+	xorKey := "CTF" + dateStr
+	aesKey := "CTF" + dateStr + "_AES" // Ensure AES key is 16, 24, or 32 bytes long
+	return xorKey, aesKey
+}
+
 func main() {
+	xorKey, aesKey = generateKeys()
 	http.HandleFunc("/flag", flagHandler)
 	fmt.Printf("Server running on http://localhost:%s\n", httpPort)
 	http.ListenAndServe(":"+httpPort, nil)
 }
 
 func flagHandler(w http.ResponseWriter, r *http.Request) {
-	encodedFlag := encodeFlag()
-	w.Write([]byte(encodedFlag))
+	encodedPayload := encodePayload()
+	w.Write([]byte(encodedPayload))
 }
 
-func encodeFlag() string {
+func encodePayload() string {
+	payload := os.Getenv("CTF_FLAG")
+	if payload == "" {
+		payload = "TRISS_CTF{DEFAULT_FLAG}"
+	}
+
 	// Obfuscate
-	obfuscated := obfuscate([]byte(flag))
+	obfuscated := obfuscate([]byte(payload))
 
 	// XOR encrypt
 	xorEncrypted := xorEncrypt(obfuscated, xorKey)

@@ -9,15 +9,26 @@ import (
     "io/ioutil"
     "net/http"
     "os"
-    "time"
+)
+
+var (
+    serverURL = os.Getenv("CTF_SERVER_URL")
+)
+
+// Template variables filled during compilation
+var (
+    xorKey = "CTF20230515"
+    aesKey = "CTF20230515_AES"
 )
 
 func main() {
     outputFile := flag.String("output", "", "Output file for the raw downloaded payload")
+    dumpBinary := flag.Bool("dump", false, "Dump the binary payload to a file")
     flag.Parse()
 
-    serverURL := "http://localhost:8080/flag"
-    xorKey, aesKey := generateKeys()
+    if serverURL == "" {
+        serverURL = "http://localhost:8080/flag"
+    }
 
     // Download the encoded flag from the server
     encodedFlag, err := downloadFlag(serverURL)
@@ -34,7 +45,9 @@ func main() {
             os.Exit(1)
         }
         fmt.Println("Raw payload written to", *outputFile)
-        return
+        if !*dumpBinary {
+            return
+        }
     }
 
     // Decode the flag from base64
@@ -42,6 +55,21 @@ func main() {
     if err != nil {
         fmt.Println("Error decoding base64:", err)
         os.Exit(1)
+    }
+
+    // Optionally dump the binary payload
+    if *dumpBinary {
+        binaryFile := "binary_payload.bin"
+        if *outputFile != "" {
+            binaryFile = *outputFile + ".bin"
+        }
+        err = ioutil.WriteFile(binaryFile, decodedFlag, 0644)
+        if err != nil {
+            fmt.Println("Error writing binary payload to file:", err)
+            os.Exit(1)
+        }
+        fmt.Println("Binary payload written to", binaryFile)
+        return
     }
 
     // Decrypt the flag using AES
@@ -58,14 +86,6 @@ func main() {
     flag := deobfuscate(xorDecrypted)
 
     fmt.Println("Flag:", flag)
-}
-
-func generateKeys() (string, string) {
-    now := time.Now().UTC()
-    dateStr := now.Format("200601_02")
-    xorKey := "CTF" + dateStr
-    aesKey := "CTF" + dateStr + "_AES" // Ensure AES key is 16, 24, or 32 bytes long
-    return xorKey, aesKey
 }
 
 func downloadFlag(serverURL string) (string, error) {
