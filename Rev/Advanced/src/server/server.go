@@ -69,7 +69,7 @@ func flagHandler(w http.ResponseWriter, r *http.Request) {
 func encodePayload() string {
 	payload := os.Getenv("CTF_FLAG")
 	if payload == "" {
-		payload = "TRISS_CTF{DEFAULT_FLAG}"
+		payload = "BarSides{DEFAULT_FLAG}"
 	}
 
 	// Obfuscate

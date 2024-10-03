@@ -16,10 +16,10 @@ COPY . .
 RUN mkdir static
 
 # Set the environment variable for the CTF flag
-ENV CTF_FLAG "YOUR_CTF_FLAG_HERE"
+ENV CTF_FLAG "BarSides{t0rch3d_by_p1ckl3s}"
 
 # Expose the port the app will run on
-EXPOSE 5000
+EXPOSE 8893
 
 # Run the Flask application
 CMD ["python", "app.py"]

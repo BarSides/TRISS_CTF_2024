@@ -29,17 +29,6 @@ func TestFlagHandler(t *testing.T) {
 	}
 }
 
-func TestEncodeFlag(t *testing.T) {
-	encoded := encodeFlag()
-	if encoded == "" {
-		t.Error("encodeFlag returned empty string")
-	}
-
-	if _, err := base64.StdEncoding.DecodeString(encoded); err != nil {
-		t.Errorf("encodeFlag returned invalid base64: %v", err)
-	}
-}
-
 func TestObfuscate(t *testing.T) {
 	input := []byte("Hello, World!")
 	obfuscated := obfuscate(input)

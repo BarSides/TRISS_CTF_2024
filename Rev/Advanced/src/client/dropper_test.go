@@ -20,7 +20,7 @@ func TestDecryptAES(t *testing.T) {
 	stream := cipher.NewCFBEncrypter(block, iv)
 	stream.XORKeyStream(ciphertext[aes.BlockSize:], plaintext)
 
-	decrypted, err := decryptAES(ciphertext)
+	decrypted, err := decryptAES(ciphertext, aesKey)
 	if err != nil {
 		t.Fatalf("decryptAES failed: %v", err)
 	}

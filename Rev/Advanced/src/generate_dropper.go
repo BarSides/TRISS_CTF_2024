@@ -48,7 +48,7 @@ func main() {
     } else {
         // Download payload from server
         if serverURL == "" {
-            serverURL = "http://localhost:8080/flag"
+            serverURL = "http://localhost:8890/flag"
         }
         encodedFlag, err = downloadFlag(serverURL)
         if err != nil {
