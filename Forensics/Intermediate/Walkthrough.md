@@ -22,4 +22,4 @@ Select a media (use Arrow keys, then press Enter):
 # Press c again over . for the current directory
 ```
 
-Flag: TRISS{everything_not_saved_will_be_lost}
+Flag: BarSides{everything_not_saved_will_be_lost}

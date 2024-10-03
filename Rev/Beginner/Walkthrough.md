@@ -13,4 +13,4 @@ An epub is basically just an xhtml file. Epub3 lets us add javascript which will
 
 ![Flag](./img/flag.png)
 
-Flag: TRISS{r34d1ng_r41nb0w}
+Flag: BarSides{r34d1ng_r41nb0w}

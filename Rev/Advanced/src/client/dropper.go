@@ -17,8 +17,8 @@ var (
 
 // Template variables filled during compilation
 var (
-    xorKey = "CTF20230515"
-    aesKey = "CTF20230515_AES!"
+    xorKey = "CTF20240113"
+    aesKey = "CTF20240113_AES!"
 )
 
 func main() {
@@ -40,7 +40,7 @@ func main() {
     } else {
         // Download payload from server
         if serverURL == "" {
-            serverURL = "http://localhost:8080/flag"
+            serverURL = "http://localhost:8890/flag"
         }
         encodedFlag, err = downloadFlag(serverURL)
         if err != nil {
