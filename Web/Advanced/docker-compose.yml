@@ -8,7 +8,7 @@ services:
     environment:
       MONGO_URL: "mongodb://root:example@mongo:27017/"
   mongo:
-    image: mongo
+    image: mongo:4.4.6
     ports:
       - "27017:27017"
     restart: always

@@ -135,7 +135,7 @@ function user(name, orgs, keys, corp_id) {
 const port = parseInt(process.env.PORT || "8000")
 
 app.listen(port, () => {
-    getCollection().drop().then(() => {
+    client.db(DBNAME).createCollection(COLLECTION).then(() => {
         Array.from([
             user("admin", [WEYLAND_YUTANI, TYRELL], ["Barsides{8a6e053f-ac6e-492b-b83b-72adf192482f}"]),
             user("trisstopher", [TYRELL]),
@@ -148,7 +148,10 @@ app.listen(port, () => {
                 .then(data => console.log(data)).catch(err => console.error(err))
         )
         console.log("Database initialized")
+    }).catch(err => {
+        console.error(err)
     })
-        .catch(err => console.error(err))
+
+
     console.log(`Server running on ${port}`)
 })
